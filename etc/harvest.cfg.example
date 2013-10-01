@@ -1,0 +1,12 @@
+[datastore]
+host: localhost
+port: 3306
+username: root
+password: 
+database: harvest
+
+[server]
+port: 443
+certfile: /home/tch/Devel/harvest-server/python/harvest-server/etc/localhost.crt.example
+keyfile: /home/tch/Devel/harvest-server/python/harvest-server/etc/localhost.key.example
+api_key: harvest
