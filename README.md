@@ -4,17 +4,17 @@ Within the context of the Sugar Learning Platform, this can be achieved by
 collecting reliable metadata from the Journal.
 
 ## Harvest server setup
-These instructions were prepared for Fedora 19.
+These instructions were prepared for Fedora 18/19.
 
 0. Install harvest-server dependencies:
 
-        $yum install git mysql-server python MySQL-python python-pip
+        $yum install git openssl httpd-tools mysql-server python MySQL-python python-pip
         $pip install tornado==3.1.1
 
 1. Get the harvest-server package:
 
         $cd /path/to/deployments/
-        $git clone git@github.com:tchx84/harvest-server.git
+        $git clone https://github.com/tchx84/harvest-server.git
         $cd harvest-server
 
 2. Create the database:
