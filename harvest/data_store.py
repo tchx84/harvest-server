@@ -50,11 +50,12 @@ class DataStore(object):
                      'keep = VALUES(keep)'
 
     QUERY_LAUNCH = 'INSERT INTO launches '\
-                   '(timestamp, object_id) '\
-                   'values (%s, %s) '\
+                   '(timestamp, object_id, serial_number) '\
+                   'values (%s, %s, %s) '\
                    'ON DUPLICATE KEY UPDATE '\
                    'timestamp = VALUES(timestamp), '\
-                   'object_id = VALUES(object_id)'
+                   'object_id = VALUES(object_id), '\
+                   'serial_number = VALUES(serial_number)'
 
     def __init__(self, host, port, username, password, database):
         self._connection = MySQLdb.connect(host=host,

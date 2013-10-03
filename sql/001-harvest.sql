@@ -4,37 +4,38 @@ CREATE DATABASE harvest;
 USE harvest;
 
 CREATE TABLE learners (
-    serial_number VARCHAR(11),
+    serial_number CHAR(11),
     birthdate INT(11),
-    gender VARCHAR(8),
+    gender VARCHAR(6),
     PRIMARY KEY (serial_number)
 );
 
 CREATE TABLE activities (
-    bundle_id VARCHAR(32),
+    bundle_id VARCHAR(255),
     PRIMARY KEY (bundle_id)
 );
 
 CREATE TABLE instances (
-    object_id VARCHAR(37),
+    object_id CHAR(36),
     filesize BIGINT UNSIGNED,
-    creation_time int(11),
-    timestamp int(11),
-    buddies int(3),
-    spent_time int(11),
+    creation_time INT(11),
+    timestamp INT(11),
+    buddies TINYINT UNSIGNED,
+    spent_time INT(11),
     share_scope BOOLEAN,
     title_set_by_user BOOLEAN,
     keep BOOLEAN,
-    serial_number VARCHAR(11),
-    bundle_id VARCHAR(32),
-    PRIMARY KEY (object_id),
+    serial_number CHAR(11),
+    bundle_id VARCHAR(255),
+    PRIMARY KEY (object_id, serial_number),
     FOREIGN KEY (serial_number) REFERENCES learners (serial_number),
     FOREIGN KEY (bundle_id) REFERENCES activities (bundle_id)
 );
 
 CREATE TABLE launches (
     timestamp INT(11) NOT NULL,
-    object_id VARCHAR(37),
-    PRIMARY KEY (timestamp, object_id),
-    FOREIGN KEY (object_id) REFERENCES instances (object_id)
+    object_id CHAR(36),
+    serial_number CHAR(11),
+    PRIMARY KEY (timestamp, object_id, serial_number),
+    FOREIGN KEY (object_id, serial_number) REFERENCES instances (object_id, serial_number)
 );
