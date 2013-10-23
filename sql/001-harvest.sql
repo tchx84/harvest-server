@@ -4,7 +4,7 @@ CREATE DATABASE harvest;
 USE harvest;
 
 CREATE TABLE learners (
-    serial_number CHAR(11),
+    serial_number VARCHAR(255),
     birthdate INT(11),
     gender VARCHAR(6),
     PRIMARY KEY (serial_number)
@@ -25,7 +25,7 @@ CREATE TABLE instances (
     share_scope BOOLEAN,
     title_set_by_user BOOLEAN,
     keep BOOLEAN,
-    serial_number CHAR(11),
+    serial_number VARCHAR(255),
     bundle_id VARCHAR(255),
     PRIMARY KEY (object_id, serial_number),
     FOREIGN KEY (serial_number) REFERENCES learners (serial_number),
@@ -35,7 +35,7 @@ CREATE TABLE instances (
 CREATE TABLE launches (
     timestamp INT(11) NOT NULL,
     object_id CHAR(36),
-    serial_number CHAR(11),
+    serial_number VARCHAR(255),
     PRIMARY KEY (timestamp, object_id, serial_number),
     FOREIGN KEY (object_id, serial_number) REFERENCES instances (object_id, serial_number)
 );
