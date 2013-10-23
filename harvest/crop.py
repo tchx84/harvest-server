@@ -26,9 +26,8 @@ class Crop(object):
         instances = None
         launches = None
 
-        #  dijkstra... forgive me!
-        if data[0] and data[0][0]:
-            learners = [data[0]]
+        # dijkstra... forgive me!
+        learners = [data[0]]
 
         for activity in data[1].keys():
             if activities is None:
