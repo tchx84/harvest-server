@@ -78,7 +78,8 @@ class DataStore(object):
             if launches is not None:
                 cursor.executemany(self.QUERY_LAUNCH, launches)
             self._connection.commit()
-        except Exception:
+        except Exception as err:
+            print err
             self._connection.rollback()
             raise StoreError
         finally:
