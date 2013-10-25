@@ -66,9 +66,11 @@ class DataStore(object):
 
     def store(self, data):
         """ extracts metadata and inserts to the database """
+        learners, activities, instances, launches = Crop.querify(data)
+
+        self._connection.ping(True)
         try:
             cursor = self._connection.cursor()
-            learners, activities, instances, launches = Crop.querify(data)
             if learners is not None:
                 cursor.executemany(self.QUERY_LEARNER, learners)
             if activities is not None:
