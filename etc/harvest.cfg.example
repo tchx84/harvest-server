@@ -1,8 +1,8 @@
 [datastore]
 host: localhost
 port: 3306
-username: root
-password: 
+username: harvest
+password: harvest
 database: harvest
 
 [server]

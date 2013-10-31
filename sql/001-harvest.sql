@@ -39,3 +39,6 @@ CREATE TABLE launches (
     PRIMARY KEY (timestamp, object_id, serial_number),
     FOREIGN KEY (object_id, serial_number) REFERENCES instances (object_id, serial_number)
 );
+
+CREATE USER 'harvest'@'localhost' IDENTIFIED BY 'harvest';
+GRANT ALL PRIVILEGES ON harvest . * TO 'harvest'@'localhost';
