@@ -7,6 +7,6 @@ database: harvest
 
 [server]
 port: 443
-certfile: /home/tch/Devel/harvest-server/python/harvest-server/etc/localhost.crt.example
-keyfile: /home/tch/Devel/harvest-server/python/harvest-server/etc/localhost.key.example
+certfile: /opt/harvest/etc/harvest.crt
+keyfile: /opt/harvest/etc/harvest.key
 api_key: harvest
