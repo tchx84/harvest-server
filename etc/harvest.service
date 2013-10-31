@@ -1,0 +1,12 @@
+[Unit]
+Description=Harvest Project Server
+Requires=mysqld.service
+After=mysql.service
+
+[Service]
+Type=simple
+ExecStart=/opt/harvest/server.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
