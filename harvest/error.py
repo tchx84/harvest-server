@@ -17,3 +17,7 @@
 
 class StoreError(Exception):
     pass
+
+
+class MigrationError(Exception):
+    pass
