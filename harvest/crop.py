@@ -37,11 +37,11 @@ class Crop(object):
             for instance in data[1][activity]:
                 if instances is None:
                     instances = []
-                instances.append(instance[:-1] + [data[0][0]] + [activity])
+                instances.append(instance[:-1] + [activity] + data[0])
 
                 for launch in instance[-1]:
                     if launches is None:
                         launches = []
-                    launches.append([launch] + [instance[0]] + [data[0][0]])
+                    launches.append([launch] + [instance[0]] + data[0])
 
         return learners, activities, instances, launches

@@ -38,8 +38,9 @@ class DataStore(object):
     QUERY_INSTANCE = 'INSERT INTO instances '\
                      '(object_id, filesize, creation_time, timestamp, '\
                      'buddies, spent_time, share_scope, title_set_by_user, '\
-                     'keep, serial_number, bundle_id) '\
-                     'values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) '\
+                     'keep, bundle_id, serial_number, birthdate, gender) '\
+                     'values (%s, %s, %s, %s, %s, %s, '\
+                     '%s, %s, %s, %s, %s, %s, %s) '\
                      'ON DUPLICATE KEY UPDATE ' \
                      'filesize = VALUES(filesize), '\
                      'timestamp = VALUES(timestamp), '\
@@ -50,12 +51,14 @@ class DataStore(object):
                      'keep = VALUES(keep)'
 
     QUERY_LAUNCH = 'INSERT INTO launches '\
-                   '(timestamp, object_id, serial_number) '\
-                   'values (%s, %s, %s) '\
+                   '(timestamp, object_id, serial_number, birthdate, gender) '\
+                   'values (%s, %s, %s, %s, %s) '\
                    'ON DUPLICATE KEY UPDATE '\
                    'timestamp = VALUES(timestamp), '\
                    'object_id = VALUES(object_id), '\
-                   'serial_number = VALUES(serial_number)'
+                   'serial_number = VALUES(serial_number), '\
+                   'birthdate = VALUES(birthdate), '\
+                   'gender = VALUES(gender)'
 
     def __init__(self, host, port, username, password, database):
         self._connection = MySQLdb.connect(host=host,
