@@ -75,6 +75,7 @@ class DataStore(object):
 
         self._connection.ping(True)
         try:
+            self._connection.begin()
             cursor = self._connection.cursor()
             if learners is not None:
                 cursor.executemany(self.QUERY_LEARNER, learners)
