@@ -1,7 +1,7 @@
 [Unit]
 Description=Harvest Project Server
 Requires=mysqld.service
-After=mysql.service
+After=mysqld.service
 
 [Service]
 Type=simple
