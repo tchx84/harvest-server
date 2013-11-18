@@ -1,6 +1,6 @@
 Name:           harvest-server
 Version:        0.2.0        
-Release:        2
+Release:        3
 Summary:        Server for the Harvest Project
 
 License:        GPLv2+
@@ -85,8 +85,11 @@ fi
 %{_sysconfdir}/systemd/system/harvest.service
 
 %changelog
+* Mon Nov 18 2013 Martin Abente Lahaye <tch@sugarlabs.org>
+- Fix typo in systemd control script
+
 * Thu Nov 14 2013 Martin Abente Lahaye <tch@sugarlabs.org>
-- Start explicit multiple statements transaction.
+- Start explicit multiple statements transaction
 
 * Sat Nov 9 2013 Martin Abente Lahaye <tch@sugarlabs.org>
 - SQL migrations support
