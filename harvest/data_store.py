@@ -22,6 +22,15 @@ from .crop import Crop
 
 class DataStore(object):
 
+    QUERY_LAPTOP = 'INSERT INTO laptops '\
+                   '(serial_number, build, updated, collected, stored) '\
+                   'values (%s, %s, %s, %s, UNIX_TIMESTAMP(now())) '\
+                   'ON DUPLICATE KEY UPDATE '\
+                   'build = VALUES(build), '\
+                   'updated = VALUES(updated), '\
+                   'collected = VALUES(collected), '\
+                   'stored = values(stored)'
+
     QUERY_LEARNER = 'INSERT INTO learners '\
                     '(serial_number, birthdate, gender) '\
                     'values (%s, %s, %s) '\
@@ -71,12 +80,14 @@ class DataStore(object):
 
     def store(self, data):
         """ extracts metadata and inserts to the database """
-        learners, activities, instances, launches = Crop.querify(data)
+        laptops, learners, activities, instances, launches = Crop.querify(data)
 
         self._connection.ping(True)
         try:
             self._connection.begin()
             cursor = self._connection.cursor()
+            if laptops is not None:
+                cursor.executemany(self.QUERY_LAPTOP, laptops)
             if learners is not None:
                 cursor.executemany(self.QUERY_LEARNER, learners)
             if activities is not None:

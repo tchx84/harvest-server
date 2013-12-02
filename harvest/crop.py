@@ -21,27 +21,29 @@ class Crop(object):
     def querify(data):
         """ split data for queries format """
 
+        laptops = None
         learners = None
         activities = None
         instances = None
         launches = None
 
         # dijkstra... forgive me!
-        learners = [data[0]]
+        laptops = [data[0]]
+        learners = [[data[0][0]] + data[1]]
 
-        for activity in data[1].keys():
+        for activity in data[2].keys():
             if activities is None:
                 activities = []
             activities.append([activity])
 
-            for instance in data[1][activity]:
+            for instance in data[2][activity]:
                 if instances is None:
                     instances = []
-                instances.append(instance[:-1] + [activity] + data[0])
+                instances.append(instance[:-1] + [activity] + learners[0])
 
                 for launch in instance[-1]:
                     if launches is None:
                         launches = []
-                    launches.append([launch] + [instance[0]] + data[0])
+                    launches.append([launch] + [instance[0]] + learners[0])
 
-        return learners, activities, instances, launches
+        return laptops, learners, activities, instances, launches
