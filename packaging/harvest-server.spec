@@ -1,6 +1,6 @@
 Name:           harvest-server
-Version:        0.2.0        
-Release:        3
+Version:        0.3.0        
+Release:        1
 Summary:        Server for the Harvest Project
 
 License:        GPLv2+
@@ -40,34 +40,35 @@ rm -rf $RPM_BUILD_ROOT
 %post
 if [ ! -f /opt/harvest/etc/harvest.cfg ]; then
     cp /opt/harvest/etc/harvest.cfg.example /opt/harvest/etc/harvest.cfg
-    echo "created new configuration file"
+    echo "Created new configuration file"
 else
-    echo "using existing configuration file"
+    echo "Using existing configuration file"
 fi
 
 if [ ! -f /opt/harvest/etc/harvest.crt ] || [ ! -f /opt/harvest/etc/harvest.key ]; then
     /opt/harvest/misc/generate.sh > /dev/null 2>&1
     mv localhost.crt.example /opt/harvest/etc/harvest.crt
     mv localhost.key.example /opt/harvest/etc/harvest.key
-    echo "created new certificate and key files"
+    echo "Created new certificate and key files"
 else
-    echo "using existing certificate and key files"
+    echo "Using existing certificate and key files"
 fi
 
 exists=$(mysql -u root -e "show databases like 'harvest'")
 if [ $? = "0" -a -z "$exists" ]; then
     mysql -u root < /opt/harvest/sql/001-harvest.sql
-    echo "created new harvest database"
+    echo "Created new harvest database"
 else
-    echo "using existing harvest database"
+    echo "Using existing harvest database"
 fi
 /opt/harvest/migrate.py
 
 %files
-/opt/harvest/server.py
-/opt/harvest/migrate.py
+%defattr(-,root,root)
+%attr(0754, root, root) /opt/harvest/server.py
+%attr(0754, root, root) /opt/harvest/migrate.py
+%attr(0754, root, root) /opt/harvest/misc/generate.sh
 /opt/harvest/etc/harvest.cfg.example
-/opt/harvest/misc/generate.sh
 /opt/harvest/sql/001-harvest.sql
 /opt/harvest/sql/002-create-migrations.sql
 /opt/harvest/sql/003-rename-foreign-keys.sql
@@ -75,6 +76,7 @@ fi
 /opt/harvest/sql/005-move-serial-position.sql
 /opt/harvest/sql/006-hash-serial-number.sql
 /opt/harvest/sql/007-add-mime-type-column.sql
+/opt/harvest/sql/008-create-laptops-table.sql
 /opt/harvest/harvest/__init__.py
 /opt/harvest/harvest/data_store.py
 /opt/harvest/harvest/decorators.py
@@ -85,6 +87,10 @@ fi
 %{_sysconfdir}/systemd/system/harvest.service
 
 %changelog
+* Tue Dec 03 2013 Martin Abente Lahaye <tch@sugarlabs.org>
+- Include laptops data
+- Fix executable permissions
+
 * Mon Nov 18 2013 Martin Abente Lahaye <tch@sugarlabs.org>
 - Fix typo in systemd control script
 
