@@ -1,5 +1,5 @@
 Name:           harvest-server
-Version:        0.3.0        
+Version:        0.3.1 
 Release:        1
 Summary:        Server for the Harvest Project
 
@@ -109,6 +109,12 @@ fi
 %{_sysconfdir}/systemd/system/harvest.service
 
 %changelog
+* Mon Jan 06 2014 Martin Abente Lahaye <tch@sugarlabs.org>
+- Set instances number in config
+- Run as unpriviledge user
+- Fix messages style
+- Set no_keep_alive in config
+
 * Tue Dec 03 2013 Martin Abente Lahaye <tch@sugarlabs.org>
 - Include laptops data
 - Fix executable permissions
