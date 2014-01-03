@@ -37,7 +37,7 @@ def main():
     config.read(config_path)
 
     sockets = bind_sockets(config.get('server', 'port'))
-    fork_processes(0)
+    fork_processes(config.getint('server', 'instances'))
 
     datastore = DataStore(config.get('datastore', 'host'),
                           config.getint('datastore', 'port'),
