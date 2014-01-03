@@ -7,7 +7,7 @@ License:        GPLv2+
 URL:            https://github.com/tchx84/harvest-server
 Source0:        %{name}-%{version}.tar.gz
 
-Requires:       python >= 2.7, python-tornado >= 2.2.1, openssl >= 1.0.1, mysql-server >= 5.5, MySQL-python >= 1.2.3 
+Requires:       python >= 2.7, python-tornado >= 2.2.1, openssl >= 1.0.1, mysql-server >= 5.5, MySQL-python >= 1.2.3, authbind >= 2.1.1 
 
 BuildArch:      noarch
 
@@ -37,7 +37,29 @@ cp etc/harvest.service $RPM_BUILD_ROOT/%{_sysconfdir}/systemd/system/
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%pre
+exists=$(getent passwd harvest > /dev/null)
+if [ $? = "0" -a -z "$exists" ]; then
+    echo "Using existing user"
+else
+    useradd --no-create-home \
+            --user-group \
+            --shell /sbin/nologin \
+            --comment "harvest server" \
+            harvest
+    echo "Created new harvest user"
+fi
+
 %post
+if [ ! -f /etc/authbind/byport/443 ]; then
+    touch /etc/authbind/byport/443
+    chown harvest:harvest /etc/authbind/byport/443
+    chmod 500 /etc/authbind/byport/443
+    echo "Created authbind permissions"
+else
+    echo "Using existing permissions"
+fi
+
 if [ ! -f /opt/harvest/etc/harvest.cfg ]; then
     cp /opt/harvest/etc/harvest.cfg.example /opt/harvest/etc/harvest.cfg
     echo "Created new configuration file"
@@ -65,7 +87,7 @@ fi
 
 %files
 %defattr(-,root,root)
-%attr(0754, root, root) /opt/harvest/server.py
+%attr(0754, harvest, harvest) /opt/harvest/server.py
 %attr(0754, root, root) /opt/harvest/migrate.py
 %attr(0754, root, root) /opt/harvest/misc/generate.sh
 /opt/harvest/etc/harvest.cfg.example
