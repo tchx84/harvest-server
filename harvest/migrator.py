@@ -67,7 +67,7 @@ class Migrator:
             for sql in self._extract_sqls(file.read()):
                 self._execute(sql, None)
             self._execute(self.SQL_SET, [filename, self._time_now()])
-            print 'Migrated to %s.' % filename
+            print 'Migrated to %s' % filename
 
     def migrate(self):
         last_migration = self._get_last_migration()
@@ -76,7 +76,7 @@ class Migrator:
                 filename not in self._banned and\
                     filename > last_migration:
                 self._apply(filename)
-        print 'All migrations done.'
+        print 'All migrations done'
 
     def __del__(self):
         if hasattr(self, '_connection'):
