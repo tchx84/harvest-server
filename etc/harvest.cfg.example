@@ -11,3 +11,4 @@ certfile: /opt/harvest/etc/harvest.crt
 keyfile: /opt/harvest/etc/harvest.key
 api_key: harvest
 instances: 0
+no_keep_alive: False

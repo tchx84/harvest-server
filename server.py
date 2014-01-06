@@ -50,9 +50,10 @@ def main():
                         'api_key': config.get('server', 'api_key')})])
 
     server = HTTPServer(app,
+                        no_keep_alive=config.get('server', 'no_keep_alive'),
                         ssl_options={
-                        'certfile': config.get('server', 'certfile'),
-                        'keyfile': config.get('server', 'keyfile')})
+                            'certfile': config.get('server', 'certfile'),
+                            'keyfile': config.get('server', 'keyfile')})
 
     server.add_sockets(sockets)
     IOLoop.instance().start()
