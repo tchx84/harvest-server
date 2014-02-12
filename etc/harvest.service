@@ -6,7 +6,7 @@ After=mysqld.service
 [Service]
 Type=simple
 User=harvest
-ExecStart=/usr/bin/authbind --deep /opt/harvest/server.py
+ExecStart=/opt/harvest/server.py
 Restart=always
 
 [Install]

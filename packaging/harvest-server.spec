@@ -7,7 +7,7 @@ License:        GPLv2+
 URL:            https://github.com/tchx84/harvest-server
 Source0:        %{name}-%{version}.tar.gz
 
-Requires:       python >= 2.7, python-tornado >= 2.2.1, openssl >= 1.0.1, mysql-server >= 5.5, MySQL-python >= 1.2.3, authbind >= 2.1.1 
+Requires:       python >= 2.7, python-tornado >= 2.2.1, openssl >= 1.0.1, mysql-server >= 5.5, MySQL-python >= 1.2.3 
 
 BuildArch:      noarch
 
@@ -51,15 +51,6 @@ else
 fi
 
 %post
-if [ ! -f /etc/authbind/byport/443 ]; then
-    touch /etc/authbind/byport/443
-    chown harvest:harvest /etc/authbind/byport/443
-    chmod 500 /etc/authbind/byport/443
-    echo "Created authbind permissions"
-else
-    echo "Using existing permissions"
-fi
-
 if [ ! -f /opt/harvest/etc/harvest.cfg ]; then
     cp /opt/harvest/etc/harvest.cfg.example /opt/harvest/etc/harvest.cfg
     echo "Created new configuration file"
