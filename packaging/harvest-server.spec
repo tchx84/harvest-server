@@ -1,5 +1,5 @@
 Name:           harvest-server
-Version:        0.3.1 
+Version:        0.3.2
 Release:        1
 Summary:        Server for the Harvest Project
 
@@ -100,6 +100,10 @@ fi
 %{_sysconfdir}/systemd/system/harvest.service
 
 %changelog
+* Wed Feb 12 2014 Martin Abente Lahaye <tch@sugarlabs.org>
+- Remove authbind
+- Specify listen address
+
 * Mon Jan 06 2014 Martin Abente Lahaye <tch@sugarlabs.org>
 - Set instances number in config
 - Run as unpriviledge user
