@@ -32,11 +32,10 @@ class DataStore(object):
                    'stored = values(stored)'
 
     QUERY_LEARNER = 'INSERT INTO learners '\
-                    '(serial_number, birthdate, gender) '\
-                    'values (%s, %s, %s) '\
+                    '(serial_number, birthdate, gender, grouping) '\
+                    'values (%s, %s, %s, %s) '\
                     'ON DUPLICATE KEY UPDATE '\
-                    'birthdate = VALUES(birthdate), '\
-                    'gender = VALUES(gender)'
+                    'grouping = VALUES(grouping)'
 
     QUERY_ACTIVITY = 'INSERT INTO activities '\
                      '(bundle_id) '\
@@ -48,9 +47,9 @@ class DataStore(object):
                      '(object_id, filesize, creation_time, timestamp, '\
                      'buddies, spent_time, share_scope, title_set_by_user, '\
                      'keep, mime_type, bundle_id, serial_number, '\
-                     'birthdate, gender) '\
+                     'birthdate, gender, grouping) '\
                      'values (%s, %s, %s, %s, %s, %s, '\
-                     '%s, %s, %s, %s, %s, %s, %s, %s) '\
+                     '%s, %s, %s, %s, %s, %s, %s, %s, %s) '\
                      'ON DUPLICATE KEY UPDATE ' \
                      'filesize = VALUES(filesize), '\
                      'timestamp = VALUES(timestamp), '\
@@ -62,8 +61,9 @@ class DataStore(object):
                      'mime_type = VALUES(mime_type)'
 
     QUERY_LAUNCH = 'INSERT INTO launches '\
-                   '(timestamp, object_id, serial_number, birthdate, gender) '\
-                   'values (%s, %s, %s, %s, %s) '\
+                   '(timestamp, object_id, serial_number, '\
+                   'birthdate, gender, grouping) '\
+                   'values (%s, %s, %s, %s, %s, %s) '\
                    'ON DUPLICATE KEY UPDATE '\
                    'timestamp = VALUES(timestamp), '\
                    'object_id = VALUES(object_id), '\
