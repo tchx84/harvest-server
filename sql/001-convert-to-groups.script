@@ -1,0 +1,50 @@
+use harvest;
+
+DELIMITER $$
+
+DROP FUNCTION IF EXISTS Grouping;
+
+CREATE FUNCTION Grouping(birthdate INT(11)) RETURNS VARCHAR(255)
+    DETERMINISTIC
+BEGIN
+    DECLARE seconds INT(11);
+    DECLARE age INT(11);
+    DECLARE grouping varchar(255);
+    DECLARE adult INT(11);
+ 
+    SET seconds = 365 * 24 * 60 * 60;
+    SET age = (UNIX_TIMESTAMP(NOW()) - birthdate) / seconds;
+    SET adult = 13 + ((25 - 13) / 2);
+
+    IF (age <= 4) THEN
+        SET grouping = 'Preschool';
+    ELSEIF (age = 5) THEN
+        SET grouping = 'Kindergarten';
+    ELSEIF (age = 6) THEN
+        SET grouping = '1st Grade';
+    ELSEIF (age = 7) THEN
+        SET grouping = '2nd Grade';
+    ELSEIF (age = 8) THEN
+        SET grouping = '3rd Grade';
+    ELSEIF (age = 9) THEN
+        SET grouping = '4th Grade';
+    ELSEIF (age = 10) THEN
+        SET grouping = '5th Grade';
+    ELSEIF (age = 11) THEN
+        SET grouping = '6th Grade';
+    ELSEIF (age = 12) THEN
+        SET grouping = '7th Grade';
+    ELSEIF (age >= 13 AND age < adult) THEN
+        SET grouping = 'High School';
+    ELSEIF (age >= adult) THEN
+        SET grouping = 'Adult';
+    END IF;
+
+    RETURN (grouping);
+END;
+
+SET FOREIGN_KEY_CHECKS=0;
+UPDATE learners SET learners.grouping = Grouping(learners.birthdate);
+UPDATE instances SET instances.grouping = Grouping(instances.birthdate);
+UPDATE launches SET launches.grouping = Grouping(launches.birthdate);
+SET FOREIGN_KEY_CHECKS=1;
