@@ -44,6 +44,6 @@ class Crop(object):
                 for launch in instance[-1]:
                     if launches is None:
                         launches = []
-                    launches.append([launch] + [instance[0]] + learners[0])
+                    launches.append(launch + [instance[0]] + learners[0])
 
         return laptops, learners, activities, instances, launches
