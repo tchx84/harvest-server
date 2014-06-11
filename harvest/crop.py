@@ -26,6 +26,7 @@ class Crop(object):
         activities = None
         instances = None
         launches = None
+        counters = None
 
         # dijkstra... forgive me!
         laptops = [data[0]]
@@ -46,4 +47,9 @@ class Crop(object):
                         launches = []
                     launches.append(launch + [instance[0]] + learners[0])
 
-        return laptops, learners, activities, instances, launches
+        for counter in data[3]:
+            if counters is None:
+                counters = []
+            counters.append(counter + learners[0])
+
+        return laptops, learners, activities, instances, launches, counters
