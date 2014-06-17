@@ -90,6 +90,9 @@ fi
 /opt/harvest/sql/006-hash-serial-number.sql
 /opt/harvest/sql/007-add-mime-type-column.sql
 /opt/harvest/sql/008-create-laptops-table.sql
+/opt/harvest/sql/009-move-spents.sql
+/opt/harvest/sql/010-add-grouping-column.sql
+/opt/harvest/sql/011-create-counters-table.sql
 /opt/harvest/harvest/__init__.py
 /opt/harvest/harvest/data_store.py
 /opt/harvest/harvest/decorators.py
@@ -100,6 +103,9 @@ fi
 %{_sysconfdir}/systemd/system/harvest.service
 
 %changelog
+* Tue Jun 17 2014 Martin Abente Lahaye <tch@sugarlabs.org>
+- land grades, time and traffic changes.
+
 * Wed Feb 12 2014 Martin Abente Lahaye <tch@sugarlabs.org>
 - Remove authbind
 - Specify listen address
