@@ -1,5 +1,5 @@
 Name:           harvest-server
-Version:        0.3.2
+Version:        0.4.0
 Release:        1
 Summary:        Server for the Harvest Project
 
