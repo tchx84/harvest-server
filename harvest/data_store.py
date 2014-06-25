@@ -23,10 +23,12 @@ from .crop import Crop
 class DataStore(object):
 
     QUERY_LAPTOP = 'INSERT INTO laptops '\
-                   '(serial_number, build, updated, collected, stored) '\
-                   'values (%s, %s, %s, %s, UNIX_TIMESTAMP(now())) '\
+                   '(serial_number, build, snapshot, '\
+                   'updated, collected, stored) '\
+                   'values (%s, %s, %s, %s, %s, UNIX_TIMESTAMP(now())) '\
                    'ON DUPLICATE KEY UPDATE '\
                    'build = VALUES(build), '\
+                   'snapshot = VALUES(snapshot), '\
                    'updated = VALUES(updated), '\
                    'collected = VALUES(collected), '\
                    'stored = values(stored)'

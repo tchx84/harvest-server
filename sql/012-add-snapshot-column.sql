@@ -1,0 +1,1 @@
+ALTER TABLE laptops ADD COLUMN snapshot VARCHAR(255) AFTER build;
