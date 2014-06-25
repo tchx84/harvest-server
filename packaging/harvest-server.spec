@@ -93,6 +93,7 @@ fi
 /opt/harvest/sql/009-move-spents.sql
 /opt/harvest/sql/010-add-grouping-column.sql
 /opt/harvest/sql/011-create-counters-table.sql
+/opt/harvest/sql/012-add-snapshot-column.sql
 /opt/harvest/harvest/__init__.py
 /opt/harvest/harvest/data_store.py
 /opt/harvest/harvest/decorators.py
@@ -103,6 +104,9 @@ fi
 %{_sysconfdir}/systemd/system/harvest.service
 
 %changelog
+* Wed Jun 25 2014 Martin Abente Lahaye <tch@sugarlabs.org>
+- Support snapshots metadata
+
 * Tue Jun 17 2014 Martin Abente Lahaye <tch@sugarlabs.org>
 - land grades, time and traffic changes.
 
