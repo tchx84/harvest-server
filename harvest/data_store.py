@@ -76,6 +76,12 @@ class DataStore(object):
                     'download = VALUES(download), '\
                     'upload = VALUES(upload)'
 
+    QUERY_EXTRAS = 'INSERT INTO extras '\
+                   '(serial_number, object_id, metadata_key, metadata_value) '\
+                   'values (%s, %s, %s, %s) '\
+                   'ON DUPLICATE KEY UPDATE ' \
+                   'metadata_value = VALUES(metadata_value)'
+
     def __init__(self, host, port, username, password, database):
         self._connection = MySQLdb.connect(host=host,
                                            port=port,
@@ -85,7 +91,8 @@ class DataStore(object):
 
     def store(self, data):
         """ extracts metadata and inserts to the database """
-        laptops, learners, activities, instances, launches, counters = Crop.querify(data)
+        laptops, learners, activities, instances, launches, counters, \
+            extras, = Crop.querify(data)
 
         self._connection.ping(True)
         try:
@@ -103,6 +110,8 @@ class DataStore(object):
                 cursor.executemany(self.QUERY_LAUNCH, launches)
             if counters is not None:
                 cursor.executemany(self.QUERY_COUNTER, counters)
+            if extras is not None:
+                cursor.executemany(self.QUERY_EXTRAS, extras)
             self._connection.commit()
         except Exception as err:
             print err
