@@ -1,6 +1,6 @@
 Name:           harvest-server
-Version:        0.4.1
-Release:        1
+Version:        0.5.1
+Release:        0
 Summary:        Server for the Harvest Project
 
 License:        GPLv2+
@@ -94,6 +94,7 @@ fi
 /opt/harvest/sql/010-add-grouping-column.sql
 /opt/harvest/sql/011-create-counters-table.sql
 /opt/harvest/sql/012-add-snapshot-column.sql
+/opt/harvest/sql/013-add-extras-table.sql
 /opt/harvest/harvest/__init__.py
 /opt/harvest/harvest/data_store.py
 /opt/harvest/harvest/decorators.py
