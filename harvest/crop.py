@@ -27,6 +27,7 @@ class Crop(object):
         instances = None
         launches = None
         counters = None
+        extras = None
 
         # dijkstra... forgive me!
         laptops = [data[0]]
@@ -52,4 +53,17 @@ class Crop(object):
                 counters = []
             counters.append(counter + learners[0])
 
-        return laptops, learners, activities, instances, launches, counters
+        if len(data) > 4:
+            serial_number = data[0][0]
+            if data[4] and extras is None:
+                extras = []
+            for activity in data[4].keys():
+                metadata = data[4][activity][0]
+                object_id = metadata['object_id']
+                for key in metadata:
+                    if key != 'object_id':
+                        extras.append([serial_number] + [object_id] +
+                                      [key] + [metadata[key]])
+
+        return laptops, learners, activities, instances, launches, counters, \
+            extras
